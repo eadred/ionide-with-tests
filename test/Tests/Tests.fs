@@ -10,7 +10,7 @@ let listArb = Arb.generate<int> |> Gen.listOf |> Gen.filter (fun ls -> List.leng
 let bigIntGen = Gen.choose(11, 20)
 let smallIntGen = Gen.choose(0, 9)
 
-let intPairs = Gen.map2 (fun x y -> (x,y)) bigIntGen smallIntGen |> Arb.fromGen
+let intPairs = (fun x y -> (x,y)) <!> bigIntGen <*> smallIntGen |> Arb.fromGen
 
 [<Tests>]
 let tests =
