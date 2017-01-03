@@ -27,6 +27,10 @@ Target "Build" (fun _ ->
     |> Log "AppBuild-Output: "
 )
 
+Target "Test" (fun _ ->
+    ProcessTestRunner.RunConsoleTests id [(buildDir + "Tests.exe", "")]
+)
+
 Target "Deploy" (fun _ ->
     !! (buildDir + "/**/*.*")
     -- "*.zip"
@@ -36,7 +40,8 @@ Target "Deploy" (fun _ ->
 // Build order
 "Clean"
   ==> "Build"
+  ==> "Test"
   ==> "Deploy"
 
 // start build
-RunTargetOrDefault "Build"
+RunTargetOrDefault "Test"
