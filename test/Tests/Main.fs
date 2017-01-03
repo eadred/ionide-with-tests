@@ -1,4 +1,4 @@
-module Tests
+module SourceTests
 
 open Expecto
 
